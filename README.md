@@ -12,3 +12,7 @@
 
 ## サーバー演習問題
 ./exercise-server
+
+## Rustからデータベースを扱う
+./database-init
+
