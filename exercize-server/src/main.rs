@@ -1,6 +1,6 @@
 use axum::{
-    extract::{Query, rejection::JsonRejection},
     extract::Path,
+    extract::{rejection::JsonRejection, Query},
     http::StatusCode,
     routing::{get, post},
     Json, Router,

@@ -7,7 +7,7 @@ use axum::{
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt::init();
-    
+
     // GETリクエストの"/hello/:username"というパターンに対応するルートを設定し、
     // URLのパラメータ(:username)を使用してhelloHandler関数を呼び出す
     let app = Router::new().route("/hello/:username", get(hello_handler));
