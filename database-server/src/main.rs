@@ -8,21 +8,21 @@ use serde::{Deserialize, Serialize};
 use sqlx::{mysql, prelude::FromRow};
 
 struct Config {
-    mariadb_host: String,
-    mariadb_port: String,
-    mariadb_user: String,
-    mariadb_password: String,
-    mariadb_database: String,
+    mysql_host: String,
+    mysql_port: String,
+    mysql_user: String,
+    mysql_password: String,
+    mysql_database: String,
 }
 impl Config {
     pub fn database_url(&self) -> String {
         format!(
             "mysql://{}:{}@{}:{}/{}",
-            self.mariadb_user,
-            self.mariadb_password,
-            self.mariadb_host,
-            self.mariadb_port,
-            self.mariadb_database
+            self.mysql_user,
+            self.mysql_password,
+            self.mysql_host,
+            self.mysql_port,
+            self.mysql_database,
         )
     }
 }
@@ -30,12 +30,12 @@ impl Config {
 #[tokio::main]
 async fn main() {
     let config = Config {
-        mariadb_host: std::env::var("MYSQL_HOSTNAME").unwrap_or_else(|_| "localhost".to_string()),
-        mariadb_port: std::env::var("MYSQL_PORT").unwrap_or_else(|_| "3306".to_string()),
-        mariadb_user: std::env::var("MYSQL_USERNAME").unwrap_or_else(|_| "root".to_string()),
-        mariadb_password: std::env::var("MYSQL_PASSWORD")
+        mysql_host: std::env::var("MYSQL_HOSTNAME").unwrap_or_else(|_| "localhost".to_string()),
+        mysql_port: std::env::var("MYSQL_PORT").unwrap_or_else(|_| "3306".to_string()),
+        mysql_user: std::env::var("MYSQL_USERNAME").unwrap_or_else(|_| "root".to_string()),
+        mysql_password: std::env::var("MYSQL_PASSWORD")
             .unwrap_or_else(|_| "password".to_string()),
-        mariadb_database: std::env::var("MYSQL_DATABASE").unwrap_or_else(|_| "world".to_string()),
+        mysql_database: std::env::var("MYSQL_DATABASE").unwrap_or_else(|_| "world".to_string()),
     };
 
     let pool = mysql::MySqlPool::connect(&config.database_url())
